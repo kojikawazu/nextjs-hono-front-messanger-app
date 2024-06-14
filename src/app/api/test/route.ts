@@ -3,7 +3,8 @@ import prisma from '@/lib/prisma/prisma';
 
 export async function GET() {
     try {
-        const users = await prisma.user.findMany();
+        //const users = await prisma.user.findMany();
+        const users = {};
         const response = NextResponse.json({ users });
         return response;
     } catch (err) {
