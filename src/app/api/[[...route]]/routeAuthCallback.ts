@@ -30,6 +30,8 @@ auth.get('/callback', async (c) => {
             if (user) {
                 const supabaseUserId = user.id;
 
+                console.log('Prisma Client before user check:', prisma);
+
                 // データベースにユーザーが存在するか確認
                 const existingUser = await prisma.user.findFirst({
                     where: {
