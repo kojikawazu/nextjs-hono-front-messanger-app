@@ -15,7 +15,7 @@ auth.get('/callback', async (c) => {
         try {
             console.log('supabaseRouteHandleClient before:');
             const supabase = supabaseRouteHandleClient();
-            console.log('exchangeCodeForSession before:');
+            console.log(`exchangeCodeForSession before: ${supabase}`);
             const { data, error } = await supabase.auth.exchangeCodeForSession(code);
             console.log('exchangeCodeForSession after:');
 
@@ -55,7 +55,7 @@ auth.get('/callback', async (c) => {
             return c.redirect(requestURL.origin);
         } catch (err) {
             console.error('Unexpected error:', err);
-            return c.json({ message: 'Internal server error' }, { status: 500 });
+            return c.json({ message: 'Internal server error', error: err }, { status: 500 });
         }
     } else {
         return c.json({ message: 'Code not privider' }, { status: 400 });
