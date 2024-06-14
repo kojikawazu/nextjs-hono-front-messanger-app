@@ -19,10 +19,13 @@ export const supabaseRouteHandleClient = () => {
     console.log(`Supabase URL: ${supabaseUrl}`);
     console.log(`Supabase Key: ${supabaseKey}`);
 
-    return createRouteHandlerClient<Database>({
+    const supabaseClient =  createRouteHandlerClient<Database>({
         cookies: () => cookies()
     }, {
         supabaseUrl,
         supabaseKey
     });
+
+    console.log('Supabase Client initialized', supabaseClient);
+    return supabaseClient;
 }

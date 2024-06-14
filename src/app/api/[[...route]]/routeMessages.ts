@@ -1,8 +1,6 @@
 import { Hono } from 'hono';
-import { PrismaClient } from '@prisma/client';
+import prisma from '@/lib/prisma/prisma';
 
-/** Prismaクライアントインスタンス */
-const prisma = new PrismaClient();
 /** Honoインスタンス */
 const messages = new Hono();
 
