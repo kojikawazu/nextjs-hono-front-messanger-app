@@ -13,8 +13,11 @@ auth.get('/callback', async (c) => {
 
     if (code) {
         try {
+            console.log('supabaseRouteHandleClient before:');
             const supabase = supabaseRouteHandleClient();
+            console.log('exchangeCodeForSession before:');
             const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+            console.log('exchangeCodeForSession after:');
 
             if (error) {
                 console.error('Error exchanging code for session:', error);
