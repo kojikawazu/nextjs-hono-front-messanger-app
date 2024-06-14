@@ -5,6 +5,9 @@ import prisma from '@/lib/prisma/prisma';
 // Honoインスタンス
 const auth = new Hono();
 
+/**
+ * サインイン認証callbackAPI
+ */
 auth.get('/callback', async (c) => {
     const requestURL = new URL(c.req.url);
     const code = requestURL.searchParams.get("code");
@@ -13,9 +16,9 @@ auth.get('/callback', async (c) => {
 
     if (code) {
         try {
-            console.log('supabaseRouteHandleClient before:');
+            console.log('supabaseRouteHandleClient before.');
             const supabase = supabaseRouteHandleClient();
-            console.log(`exchangeCodeForSession before:`, supabase.auth);
+            console.log('exchangeCodeForSession before.');
             const { data, error } = await supabase.auth.exchangeCodeForSession(code);
             console.log('exchangeCodeForSession after:', { data, error });
 
@@ -30,7 +33,8 @@ auth.get('/callback', async (c) => {
             if (user) {
                 const supabaseUserId = user.id;
 
-                console.log('Prisma Client before user check:', prisma);
+                console.log('Prisma Client before user check prisma:', prisma);
+                console.log('Prisma Client before user check supabaseUserId:', supabaseUserId);
 
                 // データベースにユーザーが存在するか確認
                 const existingUser = await prisma.user.findFirst({
@@ -54,6 +58,7 @@ auth.get('/callback', async (c) => {
                 }
             }
 
+            console.log('Redirecting to:', requestURL.origin);
             return c.redirect(requestURL.origin);
         } catch (err) {
             console.error('Unexpected error:', err);
