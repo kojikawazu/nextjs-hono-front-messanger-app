@@ -9,7 +9,7 @@ auth.get('/callback', async (c) => {
     const requestURL = new URL(c.req.url);
     const code = requestURL.searchParams.get("code");
 
-    console.log('Callback received:', { code });
+    console.log('Callback received.');
 
     if (code) {
         try {

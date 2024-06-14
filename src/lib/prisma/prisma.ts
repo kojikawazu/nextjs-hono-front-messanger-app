@@ -21,6 +21,6 @@ if (process.env.NODE_ENV === 'production') {
   prisma = global.prisma;
 }
 
-console.log('Prisma Client initialized with DATABASE_URL:', process.env.DATABASE_URL);
+console.log('Prisma Client initialized with DATABASE_URL');
 
 export default prisma;
