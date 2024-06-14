@@ -1,11 +1,9 @@
 import { Hono } from 'hono';
 import { supabaseRouteHandleClient } from "@/lib/supabase/supabaseRouteHandleClient";
-import { PrismaClient } from "@prisma/client";
+import prisma from '@/lib/prisma/prisma';
 
 // Honoインスタンス
 const auth = new Hono();
-// PrismaClientインスタンス
-const prisma = new PrismaClient();
 
 auth.get('/callback', async (c) => {
     const requestURL = new URL(c.req.url);
