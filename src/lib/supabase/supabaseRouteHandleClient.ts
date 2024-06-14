@@ -16,6 +16,9 @@ export const supabaseRouteHandleClient = () => {
         throw new Error('Missing Supabase URL or Anon Key');
     }
 
+    console.log(`Supabase URL: ${supabaseUrl}`);
+    console.log(`Supabase Key: ${supabaseKey}`);
+
     return createRouteHandlerClient<Database>({
         cookies: () => cookies()
     }, {
