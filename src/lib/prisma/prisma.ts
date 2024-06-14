@@ -9,14 +9,18 @@ declare global {
 let prisma: PrismaClient;
 
 if (process.env.NODE_ENV === 'production') {
-  prisma = new PrismaClient();
+  prisma = new PrismaClient({
+    log: ['query', 'info', 'warn', 'error'],
+  });
 } else {
   if (!global.prisma) {
-    global.prisma = new PrismaClient();
+    global.prisma = new PrismaClient({
+      log: ['query', 'info', 'warn', 'error'],
+    });
   }
   prisma = global.prisma;
 }
 
-console.log('Prisma Client initialized');
+console.log('Prisma Client initialized with DATABASE_URL:', process.env.DATABASE_URL);
 
 export default prisma;
