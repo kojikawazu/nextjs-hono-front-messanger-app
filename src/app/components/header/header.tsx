@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthServerButton from '@/app/components/auth/AuthServerButton';
+import AuthServerButton from '@/app/components/auth/auth-server-button';
 
 /**
  * ヘッダーコンポーネント

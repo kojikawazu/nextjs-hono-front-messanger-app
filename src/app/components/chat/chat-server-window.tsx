@@ -1,6 +1,6 @@
 import React from 'react';
-import { supabaseServer } from '@/lib/supabase/supabaseServer';
-import ChatClientWindow from '@/app/components/chat/ChatClientWindow';
+import { supabaseServer } from '@/lib/supabase/supabase-server';
+import ChatClientWindow from '@/app/components/chat/chat-client-window';
 
 /**
  * サーバー用チャットウィンドウ 

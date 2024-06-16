@@ -1,4 +1,4 @@
-import { supabaseRouteHandleClient } from "@/lib/supabase/supabaseRouteHandleClient";
+import { supabaseRouteHandleClient } from "@/lib/supabase/supabase-route-handle-client";
 import { NextRequest, NextResponse } from "next/server";
 
 // CORS許可アドレス
