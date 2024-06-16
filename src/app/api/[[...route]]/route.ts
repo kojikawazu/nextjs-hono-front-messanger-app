@@ -2,9 +2,9 @@ import { Hono } from 'hono';
 import { handle } from 'hono/vercel';
 import { cors } from 'hono/cors';
 
-import hello from './routeHello';
-import auth from './routeAuthCallback';
-import messages from './routeMessages';
+import hello from './route-hello';
+import auth from './route-auth-callback';
+import messages from './route-messages';
 
 const app = new Hono().basePath('/api');
 

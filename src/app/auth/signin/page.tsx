@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthSignInButton from '@/app/components/auth/AuthSignInButton';
+import AuthSignInButton from '@/app/components/auth/auth-signin-button';
 
 /**
  * サインイン認証ページ

@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { supabaseRouteHandleClient } from "@/lib/supabase/supabaseRouteHandleClient";
+import { supabaseRouteHandleClient } from "@/lib/supabase/supabase-route-handle-client";
 import prisma from '@/lib/prisma/prisma';
 
 // Honoインスタンス
