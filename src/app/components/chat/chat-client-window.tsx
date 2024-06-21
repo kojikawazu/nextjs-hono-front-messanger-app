@@ -23,6 +23,7 @@ const ChatClientWindow = ({
 }: ChatClientWindowProps) => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [newMessage, setNewMessage] = useState('');
+    const [connectionStatus, setConnectionStatus] = useState<string>('Connecting...');
 
     useEffect(() => {
         const fetchMessages = async () => {
@@ -41,9 +42,14 @@ const ChatClientWindow = ({
     useEffect(() => {
         const ws = new WebSocket(WS_URL);
 
+        ws.onopen = () => {
+            console.log('[Front] WebSocket connection opened');
+            setConnectionStatus('WebSocket connection opened');
+        };
+
         /** WebSocket受付 */
         ws.onmessage = (event) => {
-            console.log(event.data);
+            console.debug(event.data);
             const receivedData = JSON.parse(event.data);
             const receivedMessage: Message = receivedData.messageWithUser;
             setMessages((prevMessages) => {
@@ -54,11 +60,22 @@ const ChatClientWindow = ({
             });
         };
 
+        ws.onerror = (error: Event) => {
+            console.error('[Front] WebSocket error:', error);
+            setConnectionStatus(`WebSocket error`);
+        };
+    
+        ws.onclose = () => {
+            console.log('[Front] WebSocket connection closed');
+            setConnectionStatus('WebSocket connection closed');
+        };
+
         return () => ws.close();
     }, []);
 
 
     const handleSend = async () => {
+        console.debug('newMessage:', newMessage);
         if (!newMessage.trim()) return;
 
         try {
@@ -73,6 +90,7 @@ const ChatClientWindow = ({
                 }),
             });
 
+            console.debug('res:', res);
             if (res.ok) {
                 const message = await res.json();
                 //console.log('add:', JSON.stringify(message, null, 2));
@@ -88,6 +106,7 @@ const ChatClientWindow = ({
         <div className="flex flex-col w-3/4 h-screen">
             <div className="flex items-center justify-between h-16 bg-gray-100 border-b border-gray-300 px-4">
                 <h2 className="text-xl font-bold">Chat Window</h2>
+                <p>Status: {connectionStatus}</p>
             </div>
 
             <div className="flex-grow p-4 overflow-y-auto">
