@@ -1,6 +1,6 @@
-import { supabaseServer } from '@/lib/supabase/supabaseServer'
+import { supabaseServer } from '@/lib/supabase/supabase-server'
 import React from 'react'
-import AuthClientButton from './AuthClientButton';
+import AuthClientButton from './auth-client-button';
 
 /**
  * サーバーコンポーネント用認証ボタン

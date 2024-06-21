@@ -1,5 +1,5 @@
 import React from 'react';
-import ChatServerWindow from '@/app/components/chat/ChatServerWindow';
+import ChatServerWindow from '@/app/components/chat/chat-server-window';
 
 /**
  * チャットインデックスページ
