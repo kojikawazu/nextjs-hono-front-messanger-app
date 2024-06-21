@@ -16,23 +16,23 @@ const ProdWebSocketTestPage  = () => {
     const ws = new WebSocket(WS_URL);
 
     ws.onopen = () => {
-        console.log('WebSocket connection opened');
+        console.log('[Front] WebSocket connection opened');
         setConnectionStatus('WebSocket connection opened');
     };
 
     ws.onmessage = (event: MessageEvent) => {
-        console.log('WebSocket message received:', event.data);
+        console.log('[Front] WebSocket message received:', event.data);
         const { messageWithUser } = JSON.parse(event.data);
         setMessages((prevMessages) => [...prevMessages, messageWithUser]);
     };
 
     ws.onerror = (error: Event) => {
-        console.error('WebSocket error:', error);
+        console.error('[Front] WebSocket error:', error);
         setConnectionStatus(`WebSocket error`);
     };
 
     ws.onclose = () => {
-        console.log('WebSocket connection closed');
+        console.log('[Front] WebSocket connection closed');
         setConnectionStatus('WebSocket connection closed');
     };
 
