@@ -1,10 +1,9 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { Message } from '@/app/type/message.type';
+import React, { useEffect } from 'react';
+import { useChat } from '@/app/hooks/useChat';
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL as string;
-const WS_URL = process.env.NEXT_PUBLIC_WS_URL as string;
+const WS_URL      = process.env.NEXT_PUBLIC_WS_URL as string;
 
 /**
  * Props用
@@ -21,73 +20,55 @@ interface ChatClientWindowProps {
 const ChatClientWindow = ({
     userId,
 }: ChatClientWindowProps) => {
-    const [messages, setMessages] = useState<Message[]>([]);
-    const [newMessage, setNewMessage] = useState('');
+    const {         
+        messages,
+        newMessage, 
+        setNewMessage,
+        connectionStatus,
+        setConnectionStatus,
+        fetchMessages,
+        handleSendMessage,
+        setReceivedMessage,
+    } = useChat(userId);
 
     useEffect(() => {
-        const fetchMessages = async () => {
-            const res = await fetch(`${BACKEND_URL}/api/messages`);
-            const data = await res.json();
-
-            if (data) {
-                setMessages(data);
-                //console.log('data:', data);
-            }
-        };
-
         fetchMessages();
     }, []);
 
     useEffect(() => {
         const ws = new WebSocket(WS_URL);
 
+        ws.onopen = () => {
+            console.log('[Front] WebSocket connection opened');
+            setConnectionStatus('WebSocket connection opened');
+        };
+
         /** WebSocket受付 */
         ws.onmessage = (event) => {
-            console.log(event.data);
+            console.log('[Front] WebSocket message received.');
+            console.debug('data: ', event.data);
             const receivedData = JSON.parse(event.data);
-            const receivedMessage: Message = receivedData.messageWithUser;
-            setMessages((prevMessages) => {
-                if (!prevMessages.some(message => message.id === receivedMessage.id)) {
-                    return [...prevMessages, receivedMessage];
-                }
-                return prevMessages;
-            });
+            setReceivedMessage(receivedData.messageWithUser);
+        };
+
+        ws.onerror = (error: Event) => {
+            console.error('[Front] WebSocket error:', error);
+            setConnectionStatus(`WebSocket error`);
+        };
+    
+        ws.onclose = () => {
+            console.log('[Front] WebSocket connection closed');
+            setConnectionStatus('WebSocket connection closed');
         };
 
         return () => ws.close();
     }, []);
 
-
-    const handleSend = async () => {
-        if (!newMessage.trim()) return;
-
-        try {
-            const res = await fetch(`${BACKEND_URL}/api/messages`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    content: newMessage,
-                    userId,
-                }),
-            });
-
-            if (res.ok) {
-                const message = await res.json();
-                //console.log('add:', JSON.stringify(message, null, 2));
-                //setMessages((prevMessages) => [...prevMessages, message]);
-                setNewMessage('');
-            }
-        } catch (err) {
-            console.error('Error sending message: ', err);
-        }
-    };
-
     return (
         <div className="flex flex-col w-3/4 h-screen">
             <div className="flex items-center justify-between h-16 bg-gray-100 border-b border-gray-300 px-4">
                 <h2 className="text-xl font-bold">Chat Window</h2>
+                <p>Status: {connectionStatus}</p>
             </div>
 
             <div className="flex-grow p-4 overflow-y-auto">
@@ -113,7 +94,7 @@ const ChatClientWindow = ({
                 />
                 <button
                     className="ml-4 px-4 py-2 bg-blue-500 text-white rounded"
-                    onClick={handleSend}
+                    onClick={handleSendMessage}
                 >
                     Send
                 </button>
