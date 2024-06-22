@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useChat } from '@/app/hooks/useChat';
 
 const WS_URL      = process.env.NEXT_PUBLIC_WS_URL as string;
@@ -20,6 +21,12 @@ interface ChatClientWindowProps {
 const ChatClientWindow = ({
     userId,
 }: ChatClientWindowProps) => {
+    const router = useRouter();
+    if (userId === undefined) {
+        router.push('/auth/signin');
+    }
+    
+
     const {         
         messages,
         newMessage, 
