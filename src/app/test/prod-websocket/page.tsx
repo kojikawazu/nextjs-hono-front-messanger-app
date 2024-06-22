@@ -21,7 +21,7 @@ const ProdWebSocketTestPage  = () => {
     };
 
     ws.onmessage = (event: MessageEvent) => {
-        console.log('[Front] WebSocket message received:', event.data);
+        console.debug('[Front] WebSocket message received:', event.data);
         const { messageWithUser } = JSON.parse(event.data);
         setMessages((prevMessages) => [...prevMessages, messageWithUser]);
     };
@@ -40,8 +40,9 @@ const ProdWebSocketTestPage  = () => {
   }, []);
 
   const handleSendMessage = async () => {
+    console.debug('newMessage:', newMessage);
     try {
-        await fetch(`${API_URL}/api/messages`, {
+        const res = await fetch(`${API_URL}/api/messages`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -49,6 +50,7 @@ const ProdWebSocketTestPage  = () => {
             body: JSON.stringify({ content: newMessage, userId: TEST_USER_ID }),
         });
 
+        console.debug('res:', res);
         setNewMessage('');
     } catch (error) {
         console.error('Failed to send message:', error);
