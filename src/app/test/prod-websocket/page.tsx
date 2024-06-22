@@ -21,7 +21,7 @@ const ProdWebSocketTestPage  = () => {
     };
 
     ws.onmessage = (event: MessageEvent) => {
-        console.log('[Front] WebSocket message received:', event.data);
+        console.debug('[Front] WebSocket message received:', event.data);
         const { messageWithUser } = JSON.parse(event.data);
         setMessages((prevMessages) => [...prevMessages, messageWithUser]);
     };
