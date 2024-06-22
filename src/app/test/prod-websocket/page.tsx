@@ -1,15 +1,22 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useChat } from '@/app/hooks/useChat';
+import { Message } from '@/app/type/message.type';
 
 const WS_URL = process.env.NEXT_PUBLIC_WS_URL as string;
 const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL as string;
 const TEST_USER_ID = process.env.NEXT_PUBLIC_TEST_USER_ID as string;
 
 const ProdWebSocketTestPage  = () => {
-  const [messages, setMessages] = useState<any[]>([]);
-  const [newMessage, setNewMessage] = useState<string>('');
-  const [connectionStatus, setConnectionStatus] = useState<string>('Connecting...');
+    const [messages, setMessages] = useState<Message[]>([]);
+
+    const {         
+        newMessage, 
+        setNewMessage,
+        connectionStatus,
+        setConnectionStatus,
+    } = useChat(TEST_USER_ID);
 
   useEffect(() => {
     // [WebSocket受付]
