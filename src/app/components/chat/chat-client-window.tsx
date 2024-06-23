@@ -26,7 +26,6 @@ const ChatClientWindow = ({
         router.push('/auth/signin');
     }
     
-
     const {         
         messages,
         newMessage, 
@@ -72,8 +71,8 @@ const ChatClientWindow = ({
     }, []);
 
     return (
-        <div className="flex flex-col w-3/4 h-screen">
-            <div className="flex items-center justify-between h-16 bg-gray-100 border-b border-gray-300 px-4">
+        <div className="flex flex-col w-full h-screen bg-gray-900 text-white">
+            <div className="flex items-center justify-between h-16 border-b border-gray-600 px-4">
                 <h2 className="text-xl font-bold">Chat Window</h2>
                 <p>Status: {connectionStatus}</p>
             </div>
@@ -81,10 +80,18 @@ const ChatClientWindow = ({
             <div className="flex-grow p-4 overflow-y-auto">
                 <ul>
                     {messages.map((message) => (
-                        <li key={message.id} className="mb-2">
-                            <div className="px-4 py-2 bg-blue-100 rounded">
-                                <strong>{message.user?.fullName || 'Unknown User'}:</strong> {message.content}
-                                <em>({new Date(message.createdAt).toLocaleString()})</em>
+                        <li 
+                            key={message.id} 
+                            className={`mb-2 flex flex-row ${message.user?.id === userId ? 'justify-end' : 'justify-start'}`}>
+                            <div className="flex flex-col">
+                                <div className="flex text-slate-300 text-sm">
+                                    <strong className="ml-2">{message.user?.fullName || 'Unknown User'}</strong>
+                                    <em>({new Date(message.createdAt).toLocaleString()})</em>
+                                </div>
+                                <div className={`px-6 py-3 rounded-t-full rounded-l-full max-w-xs lg:max-w-md ${message.user?.id === userId ? 'bg-blue-600' : 'bg-gray-700'}`}>
+                                    {message.content}
+                                    
+                                </div>
                             </div>
                         </li>
                     ))}
