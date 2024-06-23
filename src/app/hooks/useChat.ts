@@ -60,6 +60,56 @@ export const useChat = (userId: string | undefined) => {
         }
     };
 
+     /**
+     * メッセージ更新
+     * @param messageId メッセージID
+     * @param newContent 新しいメッセージ内容
+     */
+     const handleUpdateMessage = async (messageId: string, newContent: string) => {
+        console.log('handleUpdateMessage start...');
+        const url = `${BACKEND_URL}/api/messages/${messageId}`;
+        console.log('Request URL:', url);
+
+        try {
+            console.log('fetch start...');
+            const res = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ content: newContent }),
+            });
+
+            console.log(`fetch end. res.ok? : ${res.ok}`);
+            console.log('handleUpdateMessage end.');
+        } catch (err) {
+            console.error('Error updating message: ', err);
+        }
+    };
+
+    /**
+     * メッセージ削除
+     * @param messageId メッセージID
+     */
+    const handleDeleteMessage = async (messageId: string) => {
+        console.log('handleDeleteMessage start...');
+        console.debug('messageId: ', messageId);
+        const url = `${BACKEND_URL}/api/messages/${messageId}`;
+        console.log('Request URL:', url);
+
+        try {
+            console.log('fetch start...');
+            const res = await fetch(url, {
+                method: 'DELETE',
+            });
+
+            console.log(`fetch end. res.ok? : ${res.ok}`);
+            console.log('handleDeleteMessage end.');
+        } catch (err) {
+            console.error('Error deleting message: ', err);
+        }
+    };
+
     /**
      * メッセージを格納
      * @param messageWithUser メッセージ 
@@ -83,6 +133,8 @@ export const useChat = (userId: string | undefined) => {
         setConnectionStatus,
         fetchMessages,
         handleSendMessage,
+        handleUpdateMessage,
+        handleDeleteMessage,
         setReceivedMessage,
     };
 }
