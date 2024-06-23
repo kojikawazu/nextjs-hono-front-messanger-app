@@ -46,3 +46,7 @@ https://www.prisma.io
 - Vercel
 
 https://vercel.com/kojikawazus-projects
+
+- TailwindComponent
+
+https://tailwindcomponents.com/
