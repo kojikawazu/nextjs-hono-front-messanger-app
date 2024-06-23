@@ -181,7 +181,7 @@ const ChatClientWindow = ({
             <div className="h-16 bg-gray-100 border-t border-gray-300 px-4 flex items-center sticky bottom-0">
                 <input
                     type='text'
-                    className="flex-grow px-4 py-2 border border-gray-300 rounded"
+                    className="flex-grow px-4 py-2 border border-gray-300 rounded text-black"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
                     placeholder='Type your message...'
