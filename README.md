@@ -1,4 +1,4 @@
-# Mext.js + Hono + TypeScript + SupabaseによるメッセンジャーWebアプリケーション
+# Next.js + Hono + TypeScript + SupabaseによるメッセンジャーWebアプリケーション
 
 
 ## Summary
