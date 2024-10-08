@@ -30,26 +30,14 @@ https://github.com/kojikawazu/nextjs-hono-back-messanger-app
 
 ## URL
 
-- Bun
+- [Bun](https://bun.sh/guides/ecosystem/nextjs)
 
-https://bun.sh/guides/ecosystem/nextjs
+- [Hono](https://hono.dev/getting-started/basic)
 
-- Hono
+- [Supabase](https://supabase.com)
 
-https://hono.dev/getting-started/basic
+- [Prisma](https://www.prisma.io)
 
-- Supabase
+- [Vercel](https://vercel.com/kojikawazus-projects)
 
-https://supabase.com
-
-- Prisma
-
-https://www.prisma.io
-
-- Vercel
-
-https://vercel.com/kojikawazus-projects
-
-- TailwindComponent
-
-https://tailwindcomponents.com/
+- [TailwindComponent](https://tailwindcomponents.com/)
