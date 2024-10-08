@@ -18,7 +18,7 @@
 - Web Hosting Service
   - Vercel
 
-## architecture
+## Architecture
 
 ![アーキテクチャー](./drawio/messenger-front.drawio.png)
 
