@@ -1,31 +1,34 @@
-# Mext.js + Hono + TypeScriptSupabaseによるメッセンジャーWebアプリケーション
+# Mext.js + Hono + TypeScript + SupabaseによるメッセンジャーWebアプリケーション
 
 
-# Summary
+## Summary
 
 メッセンジャーWebアプリケーションのフロント側。
 
-# Tech
----
+## Tech
 
 - frontend
   - Next.js
   - TypeScript
-- API
-  - Hono(API Route用)
+- backend
+  - Hono
   - TypeScript
 - DB and Authentication
   - Supabase
 - Web Hosting Service
   - Vercel
 
-# Backend
+## architecture
+
+![アーキテクチャー](./drawio/messenger-front.drawio.png)
+
+## Backend
 
 以下リポジトリで構築する。
 
 https://github.com/kojikawazu/nextjs-hono-back-messanger-app
 
-# URL
+## URL
 
 - Bun
 
